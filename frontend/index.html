@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🚦 Smart Traffic Management System</h1>
+            <p>Upload 4 videos to analyze traffic and manage signals</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Video Upload Section -->
+            <section class="upload-section" id="upload-section">
+                <h2>Upload Videos for Each Lane</h2>
+                <div class="upload-grid">
+                    <div class="upload-card" id="card1">
+                        <label for="video1" class="upload-label">
+                            <span class="upload-icon">📹</span>
+                            <span>Lane 1</span>
+                            <input type="file" id="video1" accept="video/*" class="video-input" data-lane="1">
+                        </label>
+                        <div class="video-preview" id="preview1"></div>
+                        <button class="remove-video-btn" id="remove1" data-lane="1" style="display: none;">Remove Video</button>
+                    </div>
+                    
+                    <div class="upload-card" id="card2">
+                        <label for="video2" class="upload-label">
+                            <span class="upload-icon">📹</span>
+                            <span>Lane 2</span>
+                            <input type="file" id="video2" accept="video/*" class="video-input" data-lane="2">
+                        </label>
+                        <div class="video-preview" id="preview2"></div>
+                        <button class="remove-video-btn" id="remove2" data-lane="2" style="display: none;">Remove Video</button>
+                    </div>
+                    
+                    <div class="upload-card" id="card3">
+                        <label for="video3" class="upload-label">
+                            <span class="upload-icon">📹</span>
+                            <span>Lane 3</span>
+                            <input type="file" id="video3" accept="video/*" class="video-input" data-lane="3">
+                        </label>
+                        <div class="video-preview" id="preview3"></div>
+                        <button class="remove-video-btn" id="remove3" data-lane="3" style="display: none;">Remove Video</button>
+                    </div>
+                    
+                    <div class="upload-card" id="card4">
+                        <label for="video4" class="upload-label">
+                            <span class="upload-icon">📹</span>
+                            <span>Lane 4</span>
+                            <input type="file" id="video4" accept="video/*" class="video-input" data-lane="4">
+                        </label>
+                        <div class="video-preview" id="preview4"></div>
+                        <button class="remove-video-btn" id="remove4" data-lane="4" style="display: none;">Remove Video</button>
+                    </div>
+                </div>
+                
+                <button class="analyze-btn" id="analyze-btn" disabled>Start Analysis</button>
+            </section>
+
+            <!-- Analysis Results Section -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <h2>Live Traffic Analysis</h2>
+                
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-label">Status:</span>
+                        <span class="status-value" id="analysis-status">Analyzing...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Emergency Detected:</span>
+                        <span class="status-value emergency-alert" id="emergency-status" style="display: none;">🚨 YES</span>
+                        <span class="status-value" id="no-emergency">No</span>
+                    </div>
+                </div>
+
+                <!-- Video Grid with Analysis -->
+                <div class="video-analysis-grid" id="video-grid">
+                    <!-- Videos will be dynamically added here -->
+                </div>
+
+                <!-- Traffic Light Control Panel -->
+                <div class="control-panel">
+                    <h3>Traffic Signal Status</h3>
+                    <div class="traffic-lights" id="traffic-lights">
+                        <!-- Traffic lights will be dynamically added -->
+                    </div>
+                </div>
+
+                <!-- Statistics Panel -->
+                <div class="stats-panel">
+                    <h3>Traffic Statistics</h3>
+                    <div class="stats-grid" id="stats-grid">
+                        <!-- Statistics will be dynamically added -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

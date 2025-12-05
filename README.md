@@ -1,53 +1,54 @@
-# 🚦 Smart Adaptive Traffic Management System 🌐
 
-## Project Overview
-Welcome to the realm of **Smart Adaptive Traffic Management**! This revolutionary project, meticulously crafted with Python and YOLO v8, introduces an intelligent traffic management system that dynamically adapts to real-time traffic conditions. By harnessing the power of live CCTV feeds, the system optimizes traffic flow by intelligently adjusting signal timings at intersections. At the heart of the project lies the intuitive Admin GUI, empowering users to effortlessly monitor and control traffic operations.
+# Smart Traffic Management System with Emergency Vehicle Prioritization
 
-## Key Features 🌟
-- **Real-time Traffic Analysis:** The project employs YOLO v8, a state-of-the-art object detection framework, to meticulously analyze live CCTV feeds. This results in precise vehicle detection and classification, forming the cornerstone of effective traffic analysis.
+**Tagline:** Efficient and Intelligent Traffic Control to Prioritize Emergency Vehicles and Reduce Congestion.
 
-- **Adaptive Signal Timing:** With a deep understanding of traffic density and vehicle types, the system dynamically recalibrates signal timings. This process minimizes congestion, reduces travel time, and maximizes road throughput.
+## 1. Project Description
 
-- **Admin GUI:** The user-friendly Admin GUI serves as a window into the system's operations. It provides real-time access to live images, comprehensive traffic statistics, and enables users to exert control over traffic signals.
+### Overview
+This project is a smart traffic management system designed to optimize traffic light cycles based on real-time data, with special prioritization for emergency vehicles. By dynamically adjusting green-light timings, it aims to reduce congestion and enable emergency vehicles to navigate intersections more efficiently.
 
-- **Simulation Demo:** A captivating simulation provides a tangible glimpse into the dynamic world of traffic management. Witness the adaptive signal timings in action at a simulated 2-way intersection, showcasing the system's effectiveness.
+### Problem Statement
+Urban areas face significant traffic congestion, often resulting in delays for emergency vehicles at intersections. This project addresses this problem by automatically adjusting traffic lights to prioritize emergency vehicles and manage vehicle density more effectively.
 
-## How It Works 🛠️
-1. **Live Feed Analysis:** YOLO v8 processes live feeds from strategically placed CCTV cameras. It efficiently detects and classifies vehicles, gathering real-time data on traffic conditions.
+## 2. Features
 
-2. **Signal Time Optimization:** Armed with a comprehensive understanding of traffic dynamics, the system performs complex algorithms to calculate optimal signal timings. These timings reflect the current traffic situation, ensuring efficient traffic flow.
+- **Real-Time Traffic Control:** Dynamically adjusts traffic light timings based on real-time vehicle density at each intersection.
+- **Emergency Vehicle Detection and Prioritization:** Detects emergency vehicles on the road and grants them a green signal to pass through without delay.
+- **Adaptive Timing Mechanism:** Uses the vehicle count and rate of increase on each road to calculate optimized green-light durations.
+- **Data Persistence with SQLite:** Efficiently stores and retrieves road traffic data for analysis of ongoing traffic patterns.
 
-3. **Admin GUI:** The intuitive graphical interface provides users with a centralized control hub. Users can view real-time images, access detailed traffic statistics, and influence traffic signals to align with the dynamic traffic landscape.
+## 3. Tech Stack
 
-## Usage 🚗
-1. Begin by installing project dependencies as outlined in the repository's instructions.
-2. Launch the main script to initiate live feed analysis and real-time signal optimization.
-3. Access the Admin GUI to interact with the system directly. This interface facilitates live image streaming, offers a wealth of traffic insights, and empowers users to influence signal timings.
+- **Programming Language:** Python
+- **Database:** SQLite for efficient data storage and retrieval
+- **Libraries:**
+  - `ultralytics` for computer vision applications
+  - `sqlite3` for database interactions
+  - `numpy` for statistical adjustments in vehicle density calculations
+  - Additional libraries like `time` for managing timing intervals
 
-## Demo Videos 🎬
-- **Admin GUI:**
+## 4. How It Works
+
+### Database Schema
+The database includes a table for each road, containing fields like:
+- **`green_time`** - Duration of green light in seconds
+- **`vehicle_count`** - Current count of vehicles in the road region
+- **`capacity`** - Total capacity of vehicles the road can hold
+
+### Road and Traffic Management Logic
+- **Road Class:** Models each road's behavior, tracks traffic data, and handles updates.
+- **Process Loop:** Monitors vehicle counts, calculates optimized green times, and switches active roads to ensure optimal traffic flow.
   
-https://github.com/shubham001official/Smart-Adaptive-Traffic-Management-System/assets/109148746/1e120012-1831-4b09-acef-fa0b5424aec6
+### Emergency Vehicle Handling
+The system continuously checks for emergency vehicles using YOLO-based detection. When an emergency vehicle is detected, the traffic light state updates to provide immediate green light access to that vehicle.
 
-- Delve into the functional and witness the convergence of technology and transportation management. Experience firsthand the fluidity of live traffic control and monitoring.
-- **Traffic Simulation:** Immerse yourself in the captivating [Simulation Demo](simulation_demo.mp4).
+## 5. Challenges and Solutions
 
+- **Dynamic Traffic Data Management:** Efficiently handling and storing dynamic traffic data presented a challenge. Implementing SQLite provided a lightweight solution, balancing functionality with performance for real-time updates.
+  
+## 6. Future Improvements
 
-https://github.com/shubham001official/Smart-Adaptive-Traffic-Management-System/assets/109148746/faad34f0-1add-4b67-ae61-f9c540ca07e5
-
-
-
--   Experience the adaptive traffic signal system's prowess as it orchestrates seamless traffic management at a simulated 2-way intersection.
-## Future Enhancements 🚀
-- Envisioned for the project's future are integrations with smart city infrastructure, enabling holistic and city-wide traffic optimization solutions.
-
-- The implementation of machine learning models for predictive traffic analysis is poised to elevate the system's proactive traffic management capabilities.
-
-- Expansion efforts aim to encompass more intricate intersections and intricate road networks, fortifying the system's applicability and impact.
-
-## Contact 📞
-For inquiries, collaboration prospects, or simply to discuss the project's nuances, please feel free to get in touch with the project author.
-
-🚗🚕🚙🚛🚦 Keep traffic flowing seamlessly with the transformative power of Smart Adaptive Traffic Management! 🌐🚀
-
---- 
+- **Machine Learning for Traffic Prediction:** Integrate machine learning models to forecast traffic patterns based on historical data.
+- **Real-Time Camera Integration:** Add direct camera data processing for enhanced vehicle counting accuracy.
+- **Multi-Intersection Traffic Management:** Scale the system to handle a network of intersections for comprehensive traffic optimization.
