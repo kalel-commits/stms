@@ -54,4 +54,16 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+.env.*
+
+# Firebase credentials (contains private keys - NEVER commit!)
+*-firebase-adminsdk-*.json
+*firebase*.json
+firebase-credentials.json
+google-services.json
+
+# Sensitive configuration
+config.json
+secrets.json
+
 
