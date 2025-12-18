@@ -9,7 +9,9 @@ import time
 import json
 
 # API endpoint
-API_URL = "http://localhost:5000/api/ai/update"
+# Base URL for backend API (override with env var TRAFFIC_API_BASE, e.g. http://127.0.0.1:5000)
+API_BASE = os.environ.get("TRAFFIC_API_BASE", "http://localhost:5000").rstrip("/")
+API_URL = f"{API_BASE}/api/ai/update"
 
 # Define region points for detection
 region_points = [(20, 400), (1080, 404), (1080, 360), (20, 360), (20, 400)]

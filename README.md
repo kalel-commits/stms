@@ -1,54 +1,202 @@
+# Smart Adaptive Traffic Management System
 
-# Smart Traffic Management System with Emergency Vehicle Prioritization
+**Intelligent Traffic Control with AI Detection and Blockchain Security**
 
-**Tagline:** Efficient and Intelligent Traffic Control to Prioritize Emergency Vehicles and Reduce Congestion.
+---
 
-## 1. Project Description
+## 📋 Project Overview
 
-### Overview
-This project is a smart traffic management system designed to optimize traffic light cycles based on real-time data, with special prioritization for emergency vehicles. By dynamically adjusting green-light timings, it aims to reduce congestion and enable emergency vehicles to navigate intersections more efficiently.
+A real-time traffic management system that uses **YOLO11 AI** for vehicle detection and a **private blockchain** for secure, immutable record-keeping. The system dynamically adjusts traffic signals based on real-time vehicle density and prioritizes emergency vehicles.
 
-### Problem Statement
-Urban areas face significant traffic congestion, often resulting in delays for emergency vehicles at intersections. This project addresses this problem by automatically adjusting traffic lights to prioritize emergency vehicles and manage vehicle density more effectively.
+### Key Features
 
-## 2. Features
+- ✅ **Real-Time Vehicle Detection** - YOLO11 AI detects vehicles in real-time
+- ✅ **Adaptive Signal Control** - Dynamic green light timings based on traffic density
+- ✅ **Emergency Vehicle Priority** - Automatic signal switching for emergency vehicles
+- ✅ **Blockchain Security** - Immutable transaction records for all signal changes
+- ✅ **Web Dashboard** - Real-time monitoring and visualization
+- ✅ **Multi-Lane Support** - Manages 4 lanes simultaneously
 
-- **Real-Time Traffic Control:** Dynamically adjusts traffic light timings based on real-time vehicle density at each intersection.
-- **Emergency Vehicle Detection and Prioritization:** Detects emergency vehicles on the road and grants them a green signal to pass through without delay.
-- **Adaptive Timing Mechanism:** Uses the vehicle count and rate of increase on each road to calculate optimized green-light durations.
-- **Data Persistence with SQLite:** Efficiently stores and retrieves road traffic data for analysis of ongoing traffic patterns.
+---
 
-## 3. Tech Stack
+## 🚀 Quick Start
 
-- **Programming Language:** Python
-- **Database:** SQLite for efficient data storage and retrieval
-- **Libraries:**
-  - `ultralytics` for computer vision applications
-  - `sqlite3` for database interactions
-  - `numpy` for statistical adjustments in vehicle density calculations
-  - Additional libraries like `time` for managing timing intervals
+### Prerequisites
 
-## 4. How It Works
+- Python 3.11 or higher
+- pip (Python package manager) — on Windows you can also use `python -m pip`
+- Modern web browser
 
-### Database Schema
-The database includes a table for each road, containing fields like:
-- **`green_time`** - Duration of green light in seconds
-- **`vehicle_count`** - Current count of vehicles in the road region
-- **`capacity`** - Total capacity of vehicles the road can hold
+### Installation
 
-### Road and Traffic Management Logic
-- **Road Class:** Models each road's behavior, tracks traffic data, and handles updates.
-- **Process Loop:** Monitors vehicle counts, calculates optimized green times, and switches active roads to ensure optimal traffic flow.
-  
-### Emergency Vehicle Handling
-The system continuously checks for emergency vehicles using YOLO-based detection. When an emergency vehicle is detected, the traffic light state updates to provide immediate green light access to that vehicle.
+1. **Install Dependencies**
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
 
-## 5. Challenges and Solutions
+2. **(Optional but Recommended) Enable GPU (NVIDIA / CUDA)**
+   - This project uses Ultralytics YOLO (PyTorch). To run inference on your NVIDIA GPU, install a CUDA-enabled PyTorch build.
 
-- **Dynamic Traffic Data Management:** Efficiently handling and storing dynamic traffic data presented a challenge. Implementing SQLite provided a lightweight solution, balancing functionality with performance for real-time updates.
-  
-## 6. Future Improvements
+   **Windows (CUDA 12.1 example)**
+   ```powershell
+   python -m pip uninstall -y torch torchvision torchaudio
+   python -m pip cache purge
+   python -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+   ```
 
-- **Machine Learning for Traffic Prediction:** Integrate machine learning models to forecast traffic patterns based on historical data.
-- **Real-Time Camera Integration:** Add direct camera data processing for enhanced vehicle counting accuracy.
-- **Multi-Intersection Traffic Management:** Scale the system to handle a network of intersections for comprehensive traffic optimization.
+   **Verify GPU is detected**
+   ```powershell
+   python -c "import torch; print('torch', torch.__version__); print('cuda_available', torch.cuda.is_available()); print('gpu', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None)"
+   ```
+
+2. **Configure Firebase**
+   - The Firebase credentials file (`smart-traffic-management-82966-firebase-adminsdk-fbsvc-24cb5c8fe2.json`) should be in the project root
+   - Firebase will be initialized automatically on first run
+   - Optionally, create a `.env` file and set `FIREBASE_CREDENTIALS_PATH` if credentials file is in different location
+
+3. **Start the Server**
+   ```bash
+   python backend/app.py
+   ```
+
+4. **Open in Browser**
+   ```
+   http://localhost:5000
+   ```
+
+### Usage
+
+1. Upload 4 videos (one for each lane)
+2. Click "Start Analysis"
+3. Use **Stop** to stop processing (keeps uploads) or **Reset** to clear state/uploads and return to upload screen
+3. System automatically detects vehicles and adjusts signals
+4. View real-time traffic data and blockchain transactions
+
+---
+
+## 🛠 Technology Stack
+
+- **Backend**: Python, Flask, Flask-SocketIO
+- **AI/ML**: YOLO11 (Ultralytics), OpenCV
+- **Blockchain**: Custom Python implementation (SHA-256)
+- **Database**: Firebase Firestore (Cloud-based)
+- **Frontend**: HTML5, CSS3, JavaScript
+
+---
+
+## 📁 Project Structure
+
+```
+Smart-Adaptive-Traffic-Management-System/
+├── backend/
+│   ├── app.py              # Main Flask server
+│   └── uploads/            # Video storage
+├── frontend/
+│   ├── index.html          # Web interface
+│   ├── app.js              # Frontend logic
+│   └── styles.css          # Styling
+├── blockchain.py           # Blockchain implementation
+├── database.py             # Firebase Firestore database operations
+├── smart-traffic-management-82966-firebase-adminsdk-fbsvc-24cb5c8fe2.json  # Firebase credentials
+├── requirements.txt        # Dependencies
+└── README.md              # This file
+```
+
+---
+
+## 🎯 How It Works
+
+1. **Video Upload** → User uploads videos for each lane
+2. **AI Detection** → YOLO11 detects vehicles in real-time
+3. **Traffic Analysis** → System calculates optimal green times
+4. **Signal Control** → Automatically switches signals based on traffic
+5. **Blockchain Record** → Every signal change recorded immutably
+6. **Real-Time Display** → Live dashboard shows everything
+
+---
+
+## 📡 API Endpoints
+
+### Main Endpoints
+- `POST /api/upload-video` - Upload video for lane
+- `DELETE /api/remove-video/<lane_id>` - Remove uploaded video for a lane
+- `POST /api/start-analysis` - Start traffic analysis
+- `POST /api/stop-analysis` - Stop traffic analysis
+- `POST /api/reset` - Stop analysis and clear uploaded videos + runtime state
+- `GET /api/status` - Get current system status
+- `GET /api/logs` - Get recent system logs
+- `GET /api/blockchain/stats` - Blockchain statistics
+- `GET /api/blockchain/lane/<id>` - Get lane transactions
+
+See `PROJECT_DETAILS.md` for complete API documentation.
+
+---
+
+## ⛓ Blockchain Features
+
+- **Immutable Records** - All signal changes recorded as transactions
+- **Tamper-Proof** - SHA-256 cryptographic hashing
+- **Real-Time Updates** - Transactions recorded automatically
+- **Complete Audit Trail** - Full history of all decisions
+- **Private Blockchain** - Fast, free, and secure
+
+---
+
+## 📚 Documentation
+
+- **Detailed Documentation**: See `PROJECT_DETAILS.md` for complete information
+  - Architecture details
+  - Complete API reference
+  - Configuration options
+  - Troubleshooting guide
+
+---
+
+## 🔧 Configuration
+
+Default settings in `backend/app.py`:
+- **Port**: 5000
+- **Blockchain Difficulty**: 2
+- **Block Size**: 5 transactions
+- **Frame Skip**: Every frame (`FRAME_SKIP = 1`)
+- **Confidence Threshold**: 0.25 (25%)
+
+### Runtime Environment Variables
+- **`YOLO_DEVICE`**: Force YOLO device (examples: `cpu`, `cuda:0`, `0`). If not set, backend auto-selects GPU if available.
+- **`TRAFFIC_API_BASE`**: Used by `ai_model.py` to point at the backend base URL (default: `http://localhost:5000`).
+
+---
+
+## 🐛 Troubleshooting
+
+**Firebase errors?**
+- Ensure Firebase credentials file is in project root
+- Check that `firebase-admin` is installed: `pip install firebase-admin`
+
+**Videos not uploading?**
+- Check file format (MP4, AVI, MOV, MKV, WebM)
+- Ensure backend server is running
+
+**Analysis not starting?**
+- Make sure all 4 videos are uploaded
+- Check browser console for errors
+
+**Port already in use?**
+- Change port in `backend/app.py` or stop other applications
+
+---
+
+## 📝 License
+
+This project is for educational and demonstration purposes.
+
+---
+
+## 👥 Contact
+
+For detailed documentation, see `PROJECT_DETAILS.md`
+
+---
+
+**Version**: 1.0.0  
+**Last Updated**: January 2024

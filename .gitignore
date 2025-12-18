@@ -55,3 +55,8 @@ Thumbs.db
 .env
 .env.local
 
+# Secrets / credentials
+*-firebase-adminsdk-*.json
+smart-traffic-management-82966-firebase-adminsdk-fbsvc-24cb5c8fe2.json
+
+

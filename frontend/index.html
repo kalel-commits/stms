@@ -6,6 +6,7 @@
     <title>Smart Traffic Management System</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -80,6 +81,10 @@
                         <span class="status-value emergency-alert" id="emergency-status" style="display: none;">🚨 YES</span>
                         <span class="status-value" id="no-emergency">No</span>
                     </div>
+                    <div class="status-actions">
+                        <button class="status-btn stop" id="stop-analysis-btn">Stop</button>
+                        <button class="status-btn secondary" id="reset-btn">Reset</button>
+                    </div>
                 </div>
 
                 <!-- Video Grid with Analysis -->
@@ -100,6 +105,75 @@
                     <h3>Traffic Statistics</h3>
                     <div class="stats-grid" id="stats-grid">
                         <!-- Statistics will be dynamically added -->
+                    </div>
+                </div>
+
+                <!-- Charts + System Logs -->
+                <div class="charts-logs-section">
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Vehicle Count Over Time</h3>
+                            <canvas id="vehicle-chart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Traffic Distribution</h3>
+                            <canvas id="traffic-pie-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="logs-container">
+                        <div class="logs-header">
+                            <h3>System Logs</h3>
+                            <button class="clear-logs-btn" id="clear-logs-btn">Clear</button>
+                        </div>
+                        <div class="logs-content" id="system-logs"></div>
+                    </div>
+                </div>
+
+                <!-- Blockchain Transactions Section -->
+                <div class="blockchain-section">
+                    <div class="blockchain-header">
+                        <h3>🔗 Blockchain Transactions</h3>
+                        <div class="blockchain-controls">
+                            <select id="blockchain-lane-filter" class="blockchain-filter">
+                                <option value="all">All Lanes</option>
+                                <option value="1">Lane 1</option>
+                                <option value="2">Lane 2</option>
+                                <option value="3">Lane 3</option>
+                                <option value="4">Lane 4</option>
+                            </select>
+                            <button id="refresh-blockchain-btn" class="blockchain-btn">🔄 Refresh</button>
+                            <button id="blockchain-stats-btn" class="blockchain-btn">📊 Stats</button>
+                        </div>
+                    </div>
+
+                    <!-- Blockchain Statistics Card -->
+                    <div class="blockchain-stats-card" id="blockchain-stats-card" style="display: none;">
+                        <div class="blockchain-stats-grid">
+                            <div class="blockchain-stat-item">
+                                <div class="blockchain-stat-label">Total Blocks</div>
+                                <div class="blockchain-stat-value" id="bc-total-blocks">-</div>
+                            </div>
+                            <div class="blockchain-stat-item">
+                                <div class="blockchain-stat-label">Total Transactions</div>
+                                <div class="blockchain-stat-value" id="bc-total-transactions">-</div>
+                            </div>
+                            <div class="blockchain-stat-item">
+                                <div class="blockchain-stat-label">Pending Transactions</div>
+                                <div class="blockchain-stat-value" id="bc-pending-transactions">-</div>
+                            </div>
+                            <div class="blockchain-stat-item">
+                                <div class="blockchain-stat-label">Chain Status</div>
+                                <div class="blockchain-stat-value" id="bc-chain-status">
+                                    <span class="status-badge" id="bc-status-badge">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="close-stats-btn" id="close-stats-btn">✕</button>
+                    </div>
+
+                    <!-- Blockchain Transactions List -->
+                    <div class="blockchain-transactions" id="blockchain-transactions">
+                        <div class="blockchain-loading">Loading blockchain transactions...</div>
                     </div>
                 </div>
             </section>
